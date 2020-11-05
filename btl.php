@@ -9,7 +9,10 @@
     <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css" />
     <script src="https://openlayers.org/en/v4.6.5/build/ol.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js" type="text/javascript"></script>
-
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     
     <style>
         
@@ -97,14 +100,19 @@
                 <!--<div id="map" style="width: 80vw; height: 100vh;"></div>-->
             </td>
             <td>
-                <input type="textinput" id="ctiy"><br/>
+                <input type="textinput" class="tags" id="ctiy"><br/>
                 <button id="btnSeacher"> Tìm kiếm</button>
                 <br />
                 <br />
                 <br />
 
                 <input onclick="oncheckhydropower();" type="checkbox" id="hydropower" name="layer" value="hydropower"> Thủy điện<br />
+                <input onclick="oncheckcang();" type="checkbox" id="cang" name="layer" value="cang"> Cảng <br />
                 <input onclick="oncheckriver();" type="checkbox" id="river" name="layer" value="river"> Sông <br />
+                <input onclick="oncheckgiaothong();" type="checkbox" id="giaothong" name="layer" value="giaothong"> Giao thông <br />
+                <input onclick="onchecksanbay();" type="checkbox" id="sanbay" name="layer" value="sanbay"> Sân bay <br />
+                <input onclick="oncheckstation();" type="checkbox" id="station" name="layer" value="station"> Ga tàu <br />
+                <input onclick="oncheckduongray();" type="checkbox" id="duongray" name="layer" value="duongray"> Đường ray <br />
                 <input onclick="oncheckvn()" type="checkbox" id="vn" name="layer" value="vn"> Việt Nam<br />
                 <button id="btnRest"> Reset</button>
 
@@ -128,6 +136,14 @@
         var layerCMR_adm1;
         var layer_river;
         var layer_hydropower;
+
+        var layer_cang;
+        var layer_giaothong;
+        var layer_station;
+        var layer_duongray;
+        var layer_sanbay;
+
+
         var vectorLayer;
         var styleFunction;
         var styles;
@@ -138,6 +154,13 @@
         var chkVN = document.getElementById("vn");
         var chkHydro = document.getElementById("hydropower");
         var chkRiver = document.getElementById("river");
+
+        var chkCang = document.getElementById("cang");
+        var chkGiaoThong = document.getElementById("giaothong");
+        var chkSanBay = document.getElementById("sanbay");
+        var chkStation = document.getElementById("station");
+        var chkDuongRay = document.getElementById("duongray");
+
         var value ;
         /**
          * Create an overlay to anchor the popup to the map.
@@ -170,14 +193,42 @@
             var popup = document.getElementById("popup");
             popup.classList.toggle("show");
         }
+        //dap
         function oncheckhydropower() {
             handleOnCheck('hydropower', layer_hydropower);
 
         }
+        //river
         function oncheckriver() {
             handleOnCheck('river', layer_river);
 
         }
+        //cang
+        function oncheckcang() {
+            handleOnCheck('cang', layer_cang);
+
+        }
+          //giao thong
+          function oncheckgiaothong() {
+            handleOnCheck('giaothong', layer_giaothong);
+
+        }
+          //san bay
+          function onchecksanbay() {
+            handleOnCheck('sanbay', layer_sanbay);
+
+        }
+          //station
+          function oncheckstation() {
+            handleOnCheck('station', layer_station);
+
+        }
+          //duongray
+          function oncheckduongray() {
+            handleOnCheck('duongray', layer_duongray);
+
+        }
+        //vn
         function oncheckvn() {
             handleOnCheck('vn', layerCMR_adm1);
         }
@@ -232,13 +283,83 @@
 
             });
 
+            layer_cang = new ol.layer.Image({
+                source: new ol.source.ImageWMS({
+                    ratio: 1,
+                    url: 'http://localhost:8080/geoserver/data1/wms?',
+                    params: {
+                        'FORMAT': format,
+                        'VERSION': '1.1.1',
+                        STYLES: '',
+                        LAYERS: 'cang',
+                    }
+                })
+
+            });
+
+            layer_duongray = new ol.layer.Image({
+                source: new ol.source.ImageWMS({
+                    ratio: 1,
+                    url: 'http://localhost:8080/geoserver/data1/wms?',
+                    params: {
+                        'FORMAT': format,
+                        'VERSION': '1.1.1',
+                        STYLES: '',
+                        LAYERS: 'vnm_rlwl_2015_osm',
+                    }
+                })
+
+            });
+
+            layer_giaothong = new ol.layer.Image({
+                source: new ol.source.ImageWMS({
+                    ratio: 1,
+                    url: 'http://localhost:8080/geoserver/data1/wms?',
+                    params: {
+                        'FORMAT': format,
+                        'VERSION': '1.1.1',
+                        STYLES: '',
+                        LAYERS: 'giao_thong_wgs84',
+                    }
+                })
+
+            });
+            layer_sanbay = new ol.layer.Image({
+                source: new ol.source.ImageWMS({
+                    ratio: 1,
+                    url: 'http://localhost:8080/geoserver/data1/wms?',
+                    params: {
+                        'FORMAT': format,
+                        'VERSION': '1.1.1',
+                        STYLES: '',
+                        LAYERS: 'sanbay',
+                    }
+                })
+
+            });
+
+            layer_station = new ol.layer.Image({
+                source: new ol.source.ImageWMS({
+                    ratio: 1,
+                    url: 'http://localhost:8080/geoserver/data1/wms?',
+                    params: {
+                        'FORMAT': format,
+                        'VERSION': '1.1.1',
+                        STYLES: '',
+                        LAYERS: 'station',
+                    }
+                })
+
+            });
+           
+
             var viewMap = new ol.View({
                 center: ol.proj.fromLonLat([mapLng, mapLat]),
                 zoom: mapDefaultZoom
             });
             map = new ol.Map({
                 target: "map",
-                layers: [layerBG,layerCMR_adm1],
+                layers: [layerBG],
                 view: viewMap,
                 overlays: [overlay], //them khai bao overlays
             });
@@ -349,6 +470,9 @@
                 overlay.setPosition(coordinate);
 
             }
+            function bla(result){
+            
+            }
 
             map.on('singleclick', function(evt) {
                 var myPoint = 'POINT(12,5)';
@@ -421,6 +545,74 @@
                         }
                     });
                 }
+                //duong ray
+                if (value == "duongray") {
+                    
+                    vectorLayer.setStyle(styleFunction);
+                    $.ajax({
+                        type: "POST",
+                        url: "CMR_pgsqlAPI.php",
+                        data: {
+                            functionname: 'getInfoDuongRayAjax',
+                            paPoint: myPoint
+                        },
+                        success: function(result, status, erro) {
+                            displayObjInfo(result, evt.coordinate);
+                        },
+                        error: function(req, status, error) {
+                            alert(req + " " + status + " " + error);
+                        }
+                    });
+                    $.ajax({
+                        type: "POST",
+                        url: "CMR_pgsqlAPI.php",
+                        data: {
+                            functionname: 'getDuongRayToAjax',
+                            paPoint: myPoint
+                        },
+                        success: function(result, status, erro) {
+                            highLightObj(result);
+                        },
+                        error: function(req, status, error) {
+                            alert(req + " " + status + " " + error);
+                        }
+                    });
+                }
+                //giao thong
+                if (value == "giaothong") {
+                    
+                    vectorLayer.setStyle(styleFunction);
+                    $.ajax({
+                        type: "POST",
+                        url: "CMR_pgsqlAPI.php",
+                        data: {
+                            functionname: 'getInfoGiaoThongAjax',
+                            paPoint: myPoint
+                        },
+                        success: function(result, status, erro) {
+                            displayObjInfo(result, evt.coordinate);
+                        },
+                        error: function(req, status, error) {
+                            alert(req + " " + status + " " + error);
+                        }
+                    });
+                    $.ajax({
+                        type: "POST",
+                        url: "CMR_pgsqlAPI.php",
+                        data: {
+                            functionname: 'getGiaoThongToAjax',
+                            paPoint: myPoint
+                        },
+                        success: function(result, status, erro) {
+                            highLightObj(result);
+                        },
+                        error: function(req, status, error) {
+                            alert(req + " " + status + " " + error);
+                        }
+                    });
+                }
+
+                //dap
                 if (value == "hydropower") {
                     vectorLayer.setStyle(stylePoint);
                     $.ajax({
@@ -452,9 +644,125 @@
                             alert(req + " " + status + " " + error);
                         }
                     });
+                    
                 }
+                //station
+                if (value == "station") {
+                    vectorLayer.setStyle(stylePoint);
+                    $.ajax({
+                        type: "POST",
+                        url: "CMR_pgsqlAPI.php",
+                        data: {
+                            functionname: 'getInfoStationToAjax',
+                            paPoint: myPoint
+                        },
+                        success: function(result, status, erro) {
+                            displayObjInfo(result, evt.coordinate);
+                        },
+                        error: function(req, status, error) {
+                            alert(req + " " + status + " " + error);
+                        }
+                    });
+
+                    $.ajax({
+                        type: "POST",
+                        url: "CMR_pgsqlAPI.php",
+                        data: {
+                            functionname: 'getStationToAjax',
+                            paPoint: myPoint
+                        },
+                        success: function(result, status, erro) {
+                            highLightObj(result);
+                        },
+                        error: function(req, status, error) {
+                            alert(req + " " + status + " " + error);
+                        }
+                    });
+                    
+                }
+                 //cang
+                 if (value == "cang") {
+                    vectorLayer.setStyle(stylePoint);
+                    $.ajax({
+                        type: "POST",
+                        url: "CMR_pgsqlAPI.php",
+                        data: {
+                            functionname: 'getInfoCangToAjax',
+                            paPoint: myPoint
+                        },
+                        success: function(result, status, erro) {
+                            displayObjInfo(result, evt.coordinate);
+                        },
+                        error: function(req, status, error) {
+                            alert(req + " " + status + " " + error);
+                        }
+                    });
+
+                    $.ajax({
+                        type: "POST",
+                        url: "CMR_pgsqlAPI.php",
+                        data: {
+                            functionname: 'getCangToAjax',
+                            paPoint: myPoint
+                        },
+                        success: function(result, status, erro) {
+                            highLightObj(result);
+                        },
+                        error: function(req, status, error) {
+                            alert(req + " " + status + " " + error);
+                        }
+                    });
+                    
+                }
+
+                 //san bay
+                 if (value == "sanbay") {
+                    vectorLayer.setStyle(stylePoint);
+                    $.ajax({
+                        type: "POST",
+                        url: "CMR_pgsqlAPI.php",
+                        data: {
+                            functionname: 'getInfoSanBayToAjax',
+                            paPoint: myPoint
+                        },
+                        success: function(result, status, erro) {
+                            displayObjInfo(result, evt.coordinate);
+                        },
+                        error: function(req, status, error) {
+                            alert(req + " " + status + " " + error);
+                        }
+                    });
+
+                    $.ajax({
+                        type: "POST",
+                        url: "CMR_pgsqlAPI.php",
+                        data: {
+                            functionname: 'getSanBayToAjax',
+                            paPoint: myPoint
+                        },
+                        success: function(result, status, erro) {
+                            highLightObj(result);
+                        },
+                        error: function(req, status, error) {
+                            alert(req + " " + status + " " + error);
+                        }
+                    });
+                    
+                }
+
             });
         };
+        $( function() {
+            availableTags=[];
+           
+             $( "#ctiy" ).autocomplete({
+             source: availableTags
+            });
+        } );
+
+
+
+
     </script>
 </body>
 
