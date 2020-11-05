@@ -553,7 +553,7 @@
                         type: "POST",
                         url: "CMR_pgsqlAPI.php",
                         data: {
-                            functionname: 'getInfoDuongRayAjax',
+                            functionname: 'getInfoDuongRayToAjax',
                             paPoint: myPoint
                         },
                         success: function(result, status, erro) {
@@ -586,7 +586,7 @@
                         type: "POST",
                         url: "CMR_pgsqlAPI.php",
                         data: {
-                            functionname: 'getInfoGiaoThongAjax',
+                            functionname: 'getInfoGiaoThongToAjax',
                             paPoint: myPoint
                         },
                         success: function(result, status, erro) {

@@ -122,7 +122,7 @@ function getGeoEagleToAjax($paPDO, $paSRID, $paPoint)
 }
 
 // hightlight san bay
-function getGeoSanBayToAjax($paPDO, $paSRID, $paPoint)
+function getSanBayToAjax($paPDO, $paSRID, $paPoint)
 {
     
     $paPoint = str_replace(',', ' ', $paPoint);
@@ -142,7 +142,7 @@ function getGeoSanBayToAjax($paPDO, $paSRID, $paPoint)
 }
 
 // hightlight station
-function getGeoStationToAjax($paPDO, $paSRID, $paPoint)
+function getStationToAjax($paPDO, $paSRID, $paPoint)
 {
     
     $paPoint = str_replace(',', ' ', $paPoint);
@@ -162,7 +162,7 @@ function getGeoStationToAjax($paPDO, $paSRID, $paPoint)
 }
 
 // hightlight cang
-function getGeoCangToAjax($paPDO, $paSRID, $paPoint)
+function getCangToAjax($paPDO, $paSRID, $paPoint)
 {
     
     $paPoint = str_replace(',', ' ', $paPoint);
@@ -290,7 +290,7 @@ function getInfoRiveroAjax($paPDO, $paSRID, $paPoint)
 }
 
 //Truy van thong tin duong ray
-function getInfoDuongRayAjax($paPDO, $paSRID, $paPoint)
+function getInfoDuongRayToAjax($paPDO, $paSRID, $paPoint)
 {
     $paPoint = str_replace(',', ' ', $paPoint);
     $strDistance = "ST_Distance('" . $paPoint . "',ST_AsText(geom))";
@@ -303,7 +303,7 @@ function getInfoDuongRayAjax($paPDO, $paSRID, $paPoint)
         // Lặp kết quả
         foreach ($result as $item) {
             $resFin = $resFin . '<tr><td>Tên đường ray: ' . $item['name'] . '</td></tr>';
-            $resFin = $resFin . '<tr><td>Chiều dài: ' . $item['length'] . '</td></tr>';
+            
             break;
         }
         $resFin = $resFin . '</table>';
@@ -313,7 +313,7 @@ function getInfoDuongRayAjax($paPDO, $paSRID, $paPoint)
 }
 
 //Truy van thong tin giao thong
-function getInfoGiaoThongAjax($paPDO, $paSRID, $paPoint)
+function getInfoGiaoThongToAjax($paPDO, $paSRID, $paPoint)
 {
     $paPoint = str_replace(',', ' ', $paPoint);
     $strDistance = "ST_Distance('" . $paPoint . "',ST_AsText(geom))";
@@ -325,8 +325,10 @@ function getInfoGiaoThongAjax($paPDO, $paSRID, $paPoint)
         $resFin = '<table>';
         // Lặp kết quả
         foreach ($result as $item) {
-            $resFin = $resFin . '<tr><td>Tên đường: ' . $item['name'] . '</td></tr>';
-            $resFin = $resFin . '<tr><td>Chiều dài: ' . $item['length'] . '</td></tr>';
+            $resFin = $resFin . '<tr><td>Tên đường: ' . $item['ten'] . '</td></tr>';
+            $resFin = $resFin . '<tr><td>Loại đường: ' . $item['loai_duong'] . '</td></tr>';
+            $resFin = $resFin . '<tr><td>Cấp: ' . $item['cap_duong'] . '</td></tr>';
+            $resFin = $resFin . '<tr><td>Chiều dài: ' . $item['chieu_dai'] . '</td></tr>';
             break;
         }
         $resFin = $resFin . '</table>';
@@ -374,9 +376,8 @@ function getInfoStationToAjax($paPDO, $paSRID, $paPoint)
         $resFin = '<table>';
         // Lặp kết quả
         foreach ($result as $item) {
-            $resFin = $resFin . '<tr><td>Tên: ' . $item['name'] . '</td></tr>';
-            $resFin = $resFin . '<tr><td>Kinh độ: ' . $item['long'] . '</td></tr>';
-            $resFin = $resFin . '<tr><td>Vĩ độ: ' . $item['lat'] . '</td></tr>';
+            $resFin = $resFin . '<tr><td>Tên Ga: ' . $item['name'] . '</td></tr>';
+           
             break;
         }
         $resFin = $resFin . '</table>';
@@ -399,9 +400,9 @@ function getInfoSanBayToAjax($paPDO, $paSRID, $paPoint)
         $resFin = '<table>';
         // Lặp kết quả
         foreach ($result as $item) {
-            $resFin = $resFin . '<tr><td>Tên: ' . $item['name'] . '</td></tr>';
-            $resFin = $resFin . '<tr><td>Kinh độ: ' . $item['long'] . '</td></tr>';
-            $resFin = $resFin . '<tr><td>Vĩ độ: ' . $item['lat'] . '</td></tr>';
+            $resFin = $resFin . '<tr><td>Tên sân bay: ' . $item['ten'] . '</td></tr>';
+            $resFin = $resFin . '<tr><td>Thành phố: ' . $item['thanh_pho'] . '</td></tr>';
+            $resFin = $resFin . '<tr><td>Đường bay: ' . $item['duongbay_m'] . '(m)</td></tr>';
             break;
         }
         $resFin = $resFin . '</table>';
@@ -424,9 +425,8 @@ function getInfoCangToAjax($paPDO, $paSRID, $paPoint)
         $resFin = '<table>';
         // Lặp kết quả
         foreach ($result as $item) {
-            $resFin = $resFin . '<tr><td>Tên: ' . $item['name'] . '</td></tr>';
-            $resFin = $resFin . '<tr><td>Kinh độ: ' . $item['long'] . '</td></tr>';
-            $resFin = $resFin . '<tr><td>Vĩ độ: ' . $item['lat'] . '</td></tr>';
+            $resFin = $resFin . '<tr><td>Tên cảng: ' . $item['ten_cang'] . '</td></tr>';
+            $resFin = $resFin . '<tr><td>Loại: ' . $item['loai'] . '</td></tr>';
             break;
         }
         $resFin = $resFin . '</table>';
