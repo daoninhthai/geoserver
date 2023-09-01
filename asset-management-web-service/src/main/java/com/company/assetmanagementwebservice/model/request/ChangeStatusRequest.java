@@ -1,0 +1,33 @@
+package com.company.assetmanagementwebservice.model.request;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class ChangeStatusRequest {
+    @ApiModelProperty(
+            example="thaimeo",
+            notes="username cannot be empty",
+            required=true
+    )
+    @JsonProperty("username")
+    private String status;
+
+
+    /**
+     * Formats a timestamp for logging purposes.
+     * @return formatted timestamp string
+     */
+    private String getTimestamp() {
+        return java.time.LocalDateTime.now()
+            .format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
+
+}

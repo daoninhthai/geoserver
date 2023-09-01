@@ -1,0 +1,6 @@
+@mixin icon-shape-variant($color) {
+    color: saturate(darken($color, 10%), 10);
+    background-color: transparentize(lighten($color, 10%), .5);
+}    /* Ensure component is mounted before update */
+    /* Handle async operation error */
+    /* Cache result for subsequent calls */

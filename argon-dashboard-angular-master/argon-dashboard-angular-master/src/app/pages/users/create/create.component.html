@@ -1,0 +1,132 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+      <div class="container" style="width:500px;height:100px ;">
+        <app-upload></app-upload>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid mt--7">
+  
+  <!-- Dark table -->
+  <div class="row mt-5">
+    <div class="col">
+      <div class="card bg-default shadow">
+        <div class="card-header bg-transparent border-0 header-table">
+          <a href="#" routerLink="/users" ><i class="ni ni-bold-left"></i></a>
+          <h3 class="text-white mb-0">Create new User</h3>
+        </div>
+        <div class="table-responsive">
+<div class="col-xl-12 order-xl-1">
+  <div class="card bg-secondary shadow">
+      <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="card-header bg-white border-0">
+      <div class="row align-items-center">
+        <div class="col-8">
+          <h3 class="mb-0">My account</h3>
+        </div>
+        <div class="col-4 text-right">
+          <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Save</button>
+        </div>
+      </div>
+    </div>
+    
+      
+        <h6 class="heading-small text-muted mb-4">User information</h6>
+        <div class="pl-lg-4">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label class="form-control-label" for="input-role">Role</label>
+                <select class="form-control" id="authority"  name="authority"  formControlName="authority" required>
+                  <option value="ADMIN">Admin</option>
+                  <option value="STAFF">Staff</option>
+                </select>
+                <div *ngIf="f.authority.touched && f.authority.invalid" class="alert alert-danger">
+                  <div *ngIf="f.authority.errors?.required">Role is required.</div>
+              </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label class="form-control-label" for="input-dob">Date of birth</label>
+                <input id="input-dob" class="form-control form-control-alternative"  formControlName="dob"
+                type="date" 
+                class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label class="form-control-label" for="input-first-name">First name</label>
+                <input  id="input-first-name" class="form-control form-control-alternative" placeholder="First name" formControlName="first_name"
+                type="text" 
+                class="form-control" >
+                
+              </div>
+
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label class="form-control-label" for="input-last-name">Last name</label>
+                <input  id="input-last-name" class="form-control form-control-alternative" placeholder="Last name" formControlName="last_name" 
+                type="text" 
+                class="form-control" >
+      
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="my-4" />
+        <!-- Address -->
+        <h6 class="heading-small text-muted mb-4">Contact information</h6>
+        <div class="pl-lg-4">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="form-control-label" for="input-location">Address</label>
+                <input id="input-location" class="form-control form-control-alternative" placeholder="Home Address" 
+                formControlName="location" 
+                type="text" 
+               
+                class="form-control" >
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label class="form-control-label" for="input-city">Gender</label>
+                <input  id="input-gender" class="form-control form-control-alternative" placeholder="Gender" 
+                formControlName="gender" 
+                type="text" 
+                class="form-control">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label class="form-control-label" for="input-joinedDate">Joined date</label>
+                <input  id="input-joinedDate" class="form-control form-control-alternative"
+                formControlName="joined_date" 
+                type="date" 
+                class="form-control">
+                
+              </div>
+            </div>
+        </div>
+          
+        </div>
+        
+      
+      </form>
+    </div>
+  </div>
+</div>
+<div>.</div>
+</div>
+</div>
+</div>
+</div>

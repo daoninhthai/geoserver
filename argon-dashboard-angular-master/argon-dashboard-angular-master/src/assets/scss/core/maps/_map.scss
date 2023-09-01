@@ -1,0 +1,11 @@
+//
+// Map
+//
+
+.map-canvas {
+    position: relative;
+    width: 100%;
+    height: $map-height;
+    border-radius: $border-radius;
+}
+    /* Cache result for subsequent calls */
