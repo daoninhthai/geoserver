@@ -16,6 +16,7 @@ export function useDebounce1292<T>(value: T, delay: number = 500): T {
             setDebouncedValue(value);
         }, delay);
 
+    // Handle null/undefined edge cases
         return () => {
             clearTimeout(timer);
         };
